@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Hero() {
   const scrollToSection = (id: string) => {
@@ -8,12 +9,46 @@ export default function Hero() {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.8, ease: 'easeOut' },
+    },
+  };
+
   return (
     <section className="relative overflow-hidden bg-background paper-texture">
       <div className="container py-20 md:py-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+        >
           {/* Text Content - Left Side */}
-          <div className="space-y-6 md:space-y-8">
+          <motion.div className="space-y-6 md:space-y-8" variants={itemVariants}>
             <div className="space-y-4">
               <div className="decorative-line"></div>
               <h1 className="font-display text-foreground">
@@ -25,7 +60,7 @@ export default function Hero() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <motion.div className="flex flex-col sm:flex-row gap-4 pt-4" variants={itemVariants}>
               <button 
                 onClick={() => scrollToSection('produtos')}
                 className="btn-primary inline-flex items-center justify-center gap-2"
@@ -41,10 +76,10 @@ export default function Hero() {
               >
                 Fale Conosco
               </a>
-            </div>
+            </motion.div>
 
             {/* Trust Indicators */}
-            <div className="flex gap-8 pt-8 text-sm text-foreground/60">
+            <motion.div className="flex gap-8 pt-8 text-sm text-foreground/60" variants={itemVariants}>
               <div>
                 <p className="font-semibold text-foreground">500+</p>
                 <p>Clientes Satisfeitos</p>
@@ -57,19 +92,19 @@ export default function Hero() {
                 <p className="font-semibold text-foreground">Entrega</p>
                 <p>Rápida</p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Hero Image - Right Side */}
-          <div className="relative h-96 md:h-full min-h-96 rounded-lg overflow-hidden shadow-xl">
+          <motion.div className="relative h-96 md:h-full min-h-96 rounded-lg overflow-hidden shadow-xl" variants={imageVariants}>
             <img 
-              src="/manus-storage/hero-papelaria_2d1f1029.png"
+              src="/images/hero-papelaria.svg"
               alt="Produtos de Papelaria Premium"
               className="w-full h-full object-cover"
             />
             <div className="gradient-overlay"></div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Decorative Bottom Wave */}

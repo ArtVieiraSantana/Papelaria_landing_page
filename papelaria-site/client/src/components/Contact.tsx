@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { toast } from 'sonner';
+import { motion } from 'framer-motion';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export default function Contact() {
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -47,10 +50,36 @@ export default function Contact() {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
+  };
+
   return (
     <section id="contato" className="py-20 md:py-32 bg-white">
       <div className="container">
-        <div className="text-center mb-16 space-y-4">
+        <motion.div
+          className="text-center mb-16 space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-100px' }}
+        >
           <div className="flex justify-center">
             <div className="decorative-line"></div>
           </div>
@@ -60,11 +89,17 @@ export default function Contact() {
           <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
             Adoramos ouvir de nossos clientes. Envie sua mensagem ou conecte-se conosco via WhatsApp
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          <div className="space-y-8">
-            <div className="flex gap-4">
+        <motion.div
+          ref={ref}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-12"
+          initial="hidden"
+          animate={isVisible ? 'visible' : 'hidden'}
+          variants={containerVariants}
+        >
+          <motion.div className="space-y-8" variants={containerVariants}>
+            <motion.div className="flex gap-4" variants={itemVariants}>
               <div className="flex-shrink-0">
                 <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10">
                   <Mail size={24} className="text-primary" />
@@ -74,9 +109,9 @@ export default function Contact() {
                 <h3 className="font-semibold text-foreground mb-1">Email</h3>
                 <p className="text-foreground/60">contato@papelariapremium.com</p>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="flex gap-4">
+            <motion.div className="flex gap-4" variants={itemVariants}>
               <div className="flex-shrink-0">
                 <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-secondary/10">
                   <Phone size={24} className="text-secondary" />
@@ -93,9 +128,9 @@ export default function Contact() {
                   (11) 99999-9999
                 </a>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="flex gap-4">
+            <motion.div className="flex gap-4" variants={itemVariants}>
               <div className="flex-shrink-0">
                 <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-accent/10">
                   <MapPin size={24} className="text-accent" />
@@ -105,10 +140,10 @@ export default function Contact() {
                 <h3 className="font-semibold text-foreground mb-1">Endereço</h3>
                 <p className="text-foreground/60">São Paulo, SP<br />Brasil</p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <form onSubmit={handleSubmit} className="lg:col-span-2 space-y-4">
+          <motion.form onSubmit={handleSubmit} className="lg:col-span-2 space-y-4" variants={containerVariants}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
@@ -203,8 +238,8 @@ export default function Contact() {
               <Send size={20} />
               {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
             </button>
-          </form>
-        </div>
+          </motion.form>
+        </motion.div>
       </div>
     </section>
   );

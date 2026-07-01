@@ -1,4 +1,6 @@
 import { ShoppingCart, Pen, BookOpen, Palette } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const products = [
   {
@@ -35,25 +37,40 @@ const products = [
   },
 ];
 
-const fadeInUpKeyframes = `
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-`;
-
 export default function Products() {
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
+  };
+
   return (
     <section id="produtos" className="py-20 md:py-32 bg-white">
       <div className="container">
         {/* Section Header */}
-        <div className="text-center mb-16 space-y-4">
+        <motion.div
+          className="text-center mb-16 space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: '-100px' }}
+        >
           <div className="flex justify-center">
             <div className="decorative-line"></div>
           </div>
@@ -63,20 +80,23 @@ export default function Products() {
           <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
             Coleção cuidadosamente selecionada de produtos premium para inspirar sua criatividade
           </p>
-        </div>
+        </motion.div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product, index) => {
+        <motion.div
+          ref={ref}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          initial="hidden"
+          animate={isVisible ? 'visible' : 'hidden'}
+          variants={containerVariants}
+        >
+          {products.map((product) => {
             const IconComponent = product.icon;
             return (
-              <div 
+              <motion.div 
                 key={product.id}
-                className="bg-card rounded-lg p-6 card-shadow hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group animate-fade-in"
-                style={{
-                  animationDelay: `${index * 100}ms`,
-                  animation: `fadeInUp 0.6s ease-out ${index * 100}ms both`
-                }}
+                className="bg-card rounded-lg p-6 card-shadow hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+                variants={itemVariants}
               >
                 {/* Icon */}
                 <div className={`${product.color} w-16 h-16 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
@@ -105,10 +125,10 @@ export default function Products() {
                 >
                   Saiba Mais →
                 </a>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

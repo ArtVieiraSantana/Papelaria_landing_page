@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" fill="#F5F1E8"/>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#C85A3A" stroke-width="3"/>
+  <text x="100" y="85" font-family="Georgia, serif" font-size="32" font-weight="bold" fill="#C85A3A" text-anchor="middle">P</text>
+  <text x="100" y="125" font-family="Georgia, serif" font-size="14" fill="#2C2C2C" text-anchor="middle">Papelaria</text>
+</svg>

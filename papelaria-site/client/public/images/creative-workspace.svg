@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <rect width="400" height="300" fill="#F5F1E8"/>
+  
+  <!-- Desk/Table -->
+  <rect x="50" y="200" width="300" height="80" fill="#8B6F47" rx="5"/>
+  
+  <!-- Items on desk -->
+  <g>
+    <!-- Pen holder -->
+    <rect x="80" y="120" width="40" height="85" fill="#C85A3A" rx="5"/>
+    <line x1="90" y1="130" x2="90" y2="180" stroke="#D4A574" stroke-width="2"/>
+    <line x1="105" y1="135" x2="105" y2="185" stroke="#D4A574" stroke-width="2"/>
+    <line x1="110" y1="130" x2="110" y2="180" stroke="#D4A574" stroke-width="2"/>
+    
+    <!-- Notebook -->
+    <rect x="160" y="140" width="100" height="70" fill="#fff" stroke="#2C2C2C" stroke-width="2" rx="3"/>
+    <line x1="165" y1="155" x2="255" y2="155" stroke="#D4A574" stroke-width="1" opacity="0.6"/>
+    <line x1="165" y1="170" x2="245" y2="170" stroke="#D4A574" stroke-width="1" opacity="0.6"/>
+    <line x1="165" y1="185" x2="255" y2="185" stroke="#D4A574" stroke-width="1" opacity="0.6"/>
+    
+    <!-- Papers stack -->
+    <rect x="280" y="160" width="60" height="50" fill="#fff" stroke="#2C2C2C" stroke-width="1" opacity="0.9"/>
+    <rect x="282" y="155" width="60" height="50" fill="#F5E6D3" stroke="#2C2C2C" stroke-width="1" opacity="0.7"/>
+    <rect x="284" y="150" width="60" height="50" fill="#E8D4BB" stroke="#2C2C2C" stroke-width="1" opacity="0.5"/>
+  </g>
+  
+  <!-- Inspiration light bulb -->
+  <circle cx="350" cy="80" r="20" fill="#D4A574" opacity="0.3"/>
+  <circle cx="350" cy="80" r="15" fill="none" stroke="#C85A3A" stroke-width="2"/>
+  <rect x="345" y="95" width="10" height="8" fill="#C85A3A"/>
+</svg>

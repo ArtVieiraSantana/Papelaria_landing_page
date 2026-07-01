@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <img 
-                src="/manus-storage/brand-logo_c7c882a1.png" 
+                src="/images/brand-logo.svg" 
                 alt="Papelaria Premium" 
                 className="h-8 w-8"
               />
